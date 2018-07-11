@@ -1,4 +1,4 @@
-package rest.baseline.commom.model;
+package com.mindstix.web.rest.baseline.common.model;
 
 /**
  * 
