@@ -4,12 +4,45 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.mindstix.web.rest</groupId>
-	<artifactId>rest.baseline.commom</artifactId>
+	<artifactId>rest-baseline-common</artifactId>
 	<version>0.0.1-RELEASE</version>
 	<packaging>jar</packaging>
 
-	<name>ReSTBaselineCommon</name>
-	<description>A common artifact which contains common attributes.</description>
+	<name>ReST Baseline Common</name>
+	<description>A common artifact which contains common Classes for ReST Baseline Framework.</description>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>https://github.com/mindstix-labs/rest-baseline-common/blob/master/LICENSE</url>
+        </license>
+    </licenses>
+    <scm>
+        <url>https://github.com/mindstix-labs/rest-baseline-common</url>
+    </scm>
+    <url>https://github.com/mindstix-labs/rest-baseline-common</url>
+    <developers>
+        <developer>
+            <id>ychawda</id>
+            <name>Yagnesh Chawda</name>
+            <email>yagnesh at mindstix.com</email>
+            <organization>Mindstix Software Labs</organization>
+            <organizationUrl>http://mindstix.com/</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+            </roles>
+        </developer>
+        <developer>
+            <id>susmitbansod</id>
+            <name>Susmit Bansod</name>
+            <email>susmit.bansod at mindstix.com</email>
+            <organization>Mindstix Software Labs</organization>
+            <organizationUrl>http://mindstix.com/</organizationUrl>
+            <roles>
+                <role>Project lead</role>
+            </roles>
+        </developer>
+    </developers>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -27,6 +60,17 @@
 		</dependency>
 	</dependencies>
 
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+        <repository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+        </repository>
+    </distributionManagement>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -38,6 +82,64 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+
+			<plugin>
+                <groupId>org.sonatype.plugins</groupId>
+                <artifactId>nexus-staging-maven-plugin</artifactId>
+                <version>1.6.8</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <serverId>ossrh</serverId>
+                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
+                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>2.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>2.9.1</version>
+                <configuration>
+                    <additionalparam>-Xdoclint:none</additionalparam>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+              </executions>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-gpg-plugin</artifactId>
+                <version>1.5</version>
+                <executions>
+                    <execution>
+                        <id>sign-artifacts</id>
+                        <phase>verify</phase>
+                        <goals>
+                            <goal>sign</goal>
+                        </goals>
+                    </execution>
+              </executions>
+            </plugin>
 		</plugins>
 	</build>
 </project>
